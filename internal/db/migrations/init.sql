@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS contributors (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS articles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  contributor_id INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  author TEXT NOT NULL,
+  source TEXT NOT NULL,
+  date DATETIME NOT NULL,
+  category TEXT NOT NULL,
+  file_path TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  
+  FOREIGN KEY (contributor_id) REFERENCES contributors(id)
+);
+
+CREATE TABLE IF NOT EXISTS article_metrics (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  article_id INTEGER NOT NULL,
+  sentences_count INTEGER NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  
+  FOREIGN KEY (article_id) REFERENCES articles(id)
+);
