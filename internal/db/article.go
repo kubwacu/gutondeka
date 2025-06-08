@@ -6,11 +6,11 @@ import "gutondeka/internal/models"
 func GetArticlesCount() ([]models.ArticleCount, error) {
 	query := `
 		SELECT 
-			strftime('%m-%Y', date) as month_year,
+			strftime('%m-%Y', created_at) as month_year,
 			COUNT(*) as count
 		FROM articles
 		GROUP BY month_year
-		ORDER BY date`
+		ORDER BY created_at`
 
 	rows, err := db.Query(query)
 	if err != nil {
